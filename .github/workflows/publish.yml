@@ -47,4 +47,4 @@ jobs:
             -d '{"event_type":"dependency_update","client_payload":{"version":"'"$VERSION"'"}}'
 
 
-            
+        
