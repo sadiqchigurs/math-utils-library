@@ -30,23 +30,16 @@ jobs:
       - name: Publish
         run: ./gradlew publish
         env:
+          GIT_SHORT_SHA: ${{ env.GIT_SHORT_SHA }}
           GITHUB_ACTOR: ${{ secrets.USER_GITHUB }}
           GITHUB_TOKEN: ${{ secrets.PAT_Token }}
 
-    #  - name: Trigger Renovate in consumer repo
-     #   uses: peter-evans/repository-dispatch@v3
-      #  with:
-       #   token: ${{ secrets.PAT_Token }}
-        #  repository: Sadiq-Chigur/sample-consumer2
-         # event-type: connector-published
-
       - name: Notify consumer repo about new version
         run: |
-          VERSION=${{ steps.publish.outputs.version }}
+          VERSION="1.0.0-${{ env.GIT_SHORT_SHA }}"
+          echo "Notifying consumers with version $VERSION"
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.PAT_Token }}" \
+            -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
             https://api.github.com/repos/Sadiq-Chigur/sample-consumer2/dispatches \
             -d '{"event_type":"dependency_update","client_payload":{"version":"'"$VERSION"'"}}'
-
-
