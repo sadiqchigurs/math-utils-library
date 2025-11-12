@@ -46,5 +46,3 @@ jobs:
             https://api.github.com/repos/Sadiq-Chigur/sample-consumer2/dispatches \
             -d '{"event_type":"dependency_update","client_payload":{"version":"'"$VERSION"'"}}'
 
-
-  
