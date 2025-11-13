@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.example"
-version = "1.0.0-${System.getenv("GIT_SHORT_SHA") ?: "local"}"
+version = "1.0.1-${System.getenv("GIT_SHORT_SHA") ?: "local"}"
 
 repositories {
     mavenCentral()
