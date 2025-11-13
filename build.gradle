@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.example"
-version = "1.0.1-${System.getenv("GIT_SHORT_SHA") ?: "local"}"
+version = "1.0.0-${System.getenv("GIT_SHORT_SHA") ?: "local"}"
 
 repositories {
     mavenCentral()
@@ -12,17 +12,22 @@ repositories {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        maven(MavenPublication) {
+            groupId = 'com.example.sadiqchigurs'
+            artifactId = 'math-utils-library'
+            version = '1.0.0'  // Use proper version, not '1.0.0-local'
+            
             from components.java
         }
     }
+    
     repositories {
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/sadiqchigurs/math-utils-library")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
